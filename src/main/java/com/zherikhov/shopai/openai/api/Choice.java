@@ -1,7 +1,6 @@
-package com.zherikhov.shopai.vo;
+package com.zherikhov.shopai.openai.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.zherikhov.shopai.vo.Message;
 
 public record Choice(@JsonProperty("message") Message message) {
 

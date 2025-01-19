@@ -1,7 +1,7 @@
-package com.zherikhov.shopai.configuration;
+package com.zherikhov.shopai.openai.configuration;
 
 import com.zherikhov.shopai.TelegramBot;
-import com.zherikhov.shopai.service.OpenAIService;
+import com.zherikhov.shopai.openai.service.ChatGPTService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +15,9 @@ public class TelegramBotConfiguration {
 
     @SneakyThrows
     @Bean
-    public TelegramBot telegramBot(@Value("${telegtam.token}") String botToken, TelegramBotsApi telegramBotsApi, OpenAIService openAIService) {
+    public TelegramBot telegramBot(@Value("${telegtam.token}") String botToken, TelegramBotsApi telegramBotsApi, ChatGPTService chatGPTService) {
         DefaultBotOptions botOptions = new DefaultBotOptions();
-        TelegramBot telegramBot = new TelegramBot(botOptions, botToken, openAIService);
+        TelegramBot telegramBot = new TelegramBot(botOptions, botToken, chatGPTService);
         telegramBotsApi.registerBot(telegramBot);
 
         return telegramBot;

@@ -1,8 +1,7 @@
 package com.zherikhov.shopai;
 
-import com.zherikhov.shopai.service.OpenAIService;
+import com.zherikhov.shopai.openai.service.ChatGPTService;
 import com.zherikhov.shopai.util.ResourcesUtil;
-import com.zherikhov.shopai.vo.ChatCompletionObject;
 import lombok.SneakyThrows;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -10,11 +9,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class TelegramBot extends TelegramLongPollingBot {
-    private final OpenAIService openAIService;
+    private final ChatGPTService chatGPTService;
 
-    public TelegramBot(DefaultBotOptions options, String botToken, OpenAIService openAIService) {
+    public TelegramBot(DefaultBotOptions options, String botToken, ChatGPTService chatGPTService) {
         super(options, botToken);
-        this.openAIService = openAIService;
+        this.chatGPTService = chatGPTService;
     }
 
     @SneakyThrows
@@ -24,10 +23,9 @@ public class TelegramBot extends TelegramLongPollingBot {
             String text = update.getMessage().getText();
             Long chatId = update.getMessage().getChatId();
 
-            ChatCompletionObject chatCompletion = openAIService.createChatCompletion(text);
-            String content = chatCompletion.choices().get(0).message().content();
+            String gptGenerateText = chatGPTService.getResponseForUser(chatId, text);
 
-            SendMessage sendMessage = new SendMessage(chatId.toString(), content);
+            SendMessage sendMessage = new SendMessage(chatId.toString(), gptGenerateText);
             sendApiMethod(sendMessage);
         }
     }

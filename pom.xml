@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.zherikhov</groupId>
-	<artifactId>shopAI</artifactId>
+	<artifactId>listAI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>shopAI</name>
-	<description>shopAI</description>
+	<name>listAI</name>
+	<description>listAI</description>
 	<url/>
 	<licenses>
 		<license/>
